@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ET Prime Articles - Mobile Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Mobile Frame - Slimmer bezels */
+        .mobile-frame {
+            width: 390px;
+            height: 720px;
+            background: #1a1a1a;
+            border-radius: 45px;
+            padding: 6px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6),
+                        0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Minimal Notch */
+        .notch {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 26px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 200;
+            box-shadow: inset 0 -2px 4px rgba(255,255,255,0.05);
+        }
+
+        /* Mobile Screen */
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
+            color: #fff;
+            padding: 40px 20px 16px 20px;
+            box-shadow: 0 2px 20px rgba(198, 40, 40, 0.25);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .et-logo {
+            color: #fff;
+            font-style: italic;
+        }
+
+        .prime-badge {
+            background: rgba(255, 235, 59, 0.2);
+            color: #ffeb3b;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 235, 59, 0.4);
+        }
+
+        /* Container */
+        .container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: #f5f5f5;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #c62828;
+            border-radius: 3px;
+        }
+
+        /* Article Card */
+        .article-card {
+            background: #fff;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .article-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .category-badge {
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 2px 8px rgba(198, 40, 40, 0.3);
+        }
+
+        .category-badge.free {
+            background: linear-gradient(135deg, #757575 0%, #616161 100%);
+        }
+
+        .article-id {
+            color: #999;
+            font-size: 11px;
+            margin-left: auto;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* Story Image - Fixed */
+        .story-image-container {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #f0f0f0;
+            position: relative;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Story Content */
+        .story-content {
+            padding: 20px;
+        }
+
+        /* Story Text - Fixed line spacing and justification */
+        .story-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #2c2c2c;
+            text-align: justify;
+            word-spacing: -0.05em;
+        }
+
+        .story-text.collapsed {
+            max-height: 110px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .story-text.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, #fff);
+        }
+
+        /* Read More Button */
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: transparent;
+            color: #c62828;
+            border: 2px solid #c62828;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: #c62828;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3);
+        }
+
+        .read-more-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Summary and Keypoint */
+        .summary-text {
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #2c2c2c;
+            text-align: justify;
+        }
+
+        .keypoint-list {
+            list-style: none;
+            padding: 16px;
+        }
+
+        .keypoint-item {
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+            border-left: 4px solid #c62828;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #2c2c2c;
+            box-shadow: 0 2px 6px rgba(198, 40, 40, 0.08);
+            text-align: justify;
+        }
+
+        .keypoint-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Card Carousel */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            padding: 16px;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 4px 0;
+        }
+
+        .carousel-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card-item {
+            min-width: 88%;
+            scroll-snap-align: start;
+            background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
+            color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(198, 40, 40, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* First Card with Image */
+        .card-item.first-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-item.first-card .card-text {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .card-item:not(.first-card) .card-text {
+            padding: 24px;
+        }
+
+        .card-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .card-text {
+            font-size: 13px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            text-align: justify;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding-bottom: 4px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #c62828;
+            width: 24px;
+            border-radius: 3px;
+        }
+
+        /* Read Article Button */
+        .read-article-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: calc(100% - 40px);
+            margin: 0 20px 20px 20px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(198, 40, 40, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .read-article-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .read-article-btn:hover::before {
+            left: 100%;
+        }
+
+        .read-article-btn:active {
+            transform: scale(0.98);
+        }
+
+        .read-article-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #c62828;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Responsive for actual mobile devices */
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+                background: #fff;
+            }
+
+            .mobile-frame {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                background: transparent;
+            }
+
+            .mobile-screen {
+                border-radius: 0;
+            }
+
+            .notch {
+                display: none;
+            }
+
+            .header {
+                padding-top: 20px;
+            }
+        }
+
+        /* Desktop Preview Label */
+        @media (min-width: 481px) {
+            body::before {
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: #666;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                padding: 8px 20px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 20px;
+                backdrop-filter: blur(10px);
+            }
+        }
+
+        /* Smaller screens */
+        @media (max-height: 800px) {
+            .mobile-frame {
+                height: 650px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-frame">
+        <div class="notch"></div>
+        <div class="mobile-screen">
+            <div class="header">
+                <div class="header-title">
+                    <span class="et-logo">The Economic Times</span>
+                    <span class="prime-badge">PRIME</span>
+                </div>
+            </div>
+
+            <div class="container" id="articlesContainer">
+                <div class="loading">Loading articles</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let articlesData = [];
+
+        // Function to generate ET article URL
+        function getArticleUrl(articleId) {
+            return `https://economictimes.indiatimes.com/prime/economy-and-policy/primearticleshow/${articleId}.cms`;
+        }
+
+        // Format story text - preserve line breaks
+        function formatStoryText(story) {
+            if (!story) return '';
+            
+            // Replace newlines with <br> tags for HTML
+            return story.replace(/\n/g, '<br>').trim();
+        }
+
+        // Get preview text (first 150 characters without breaks)
+        function getPreviewText(story) {
+            if (!story) return '';
+            
+            // Remove line breaks for preview
+            const text = story.replace(/\n/g, ' ').trim();
+            
+            if (text.length <= 150) return text;
+            
+            const preview = text.substring(0, 150);
+            const lastSpace = preview.lastIndexOf(' ');
+            
+            return preview.substring(0, lastSpace) + '...';
+        }
+
+        // Load data from JSON file
+        async function loadArticles() {
+            try {
+                const response = await fetch('data.json');
+                articlesData = await response.json();
+                renderArticles();
+            } catch (error) {
+                document.getElementById('articlesContainer').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <p>Failed to load articles.<br>Please ensure data.json exists.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render articles based on method
+        function renderArticles() {
+            const container = document.getElementById('articlesContainer');
+            
+            if (!articlesData || articlesData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📰</div>
+                        <p>No articles found</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = articlesData.map(article => {
+                let contentHTML = '';
+
+                // Render based on method
+                if (article.method === 'story' && article.story) {
+                    const previewText = getPreviewText(article.story);
+                    const fullText = formatStoryText(article.story);
+                    
+                    contentHTML = `
+                        ${article.url ? `
+                            <div class="story-image-container">
+                                <img src="${article.url}" alt="Story Image" class="story-image" 
+                                     onerror="this.parentElement.style.display='none'"
+                                     loading="lazy">
+                            </div>
+                        ` : ''}
+                        <div class="story-content">
+                            <div class="story-text collapsed" data-story-id="${article.id}">${previewText}</div>
+                            <button class="read-more-btn" onclick="toggleStory('${article.id}')">
+                                Read More →
+                            </button>
+                            <div style="display:none;" data-full-story="${article.id}">${fullText}</div>
+                        </div>
+                    `;
+                } else if (article.method === 'card' && article.card) {
+                    contentHTML = `
+                        <div class="carousel-container">
+                            <div class="carousel-wrapper" data-carousel="${article.id}">
+                                ${article.card.map((cardText, index) => `
+                                    <div class="card-item ${index === 0 ? 'first-card' : ''}">
+                                        ${index === 0 && article.url ? `
+                                            <div class="card-image-container">
+                                                <img src="${article.url}" alt="Card Image" class="card-image" 
+                                                     onerror="this.parentElement.style.display='none'"
+                                                     loading="lazy">
+                                            </div>
+                                        ` : ''}
+                                        <p class="card-text">${cardText}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="carousel-dots" data-dots="${article.id}">
+                                ${article.card.map((_, index) => `
+                                    <span class="dot ${index === 0 ? 'active' : ''}"></span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                } else if (article.method === 'keypoint' && article.keypoint) {
+                    contentHTML = `
+                        <ul class="keypoint-list">
+                            ${article.keypoint.map(point => `
+                                <li class="keypoint-item">${point}</li>
+                            `).join('')}
+                        </ul>
+                    `;
+                } else if (article.method === 'summary' && article.Summary) {
+                    contentHTML = `<p class="summary-text">${article.Summary}</p>`;
+                }
+
+                return `
+                    <div class="article-card">
+                        <div class="article-header">
+                            <span class="category-badge ${article.category.toLowerCase()}">${article.category}</span>
+                            <span class="article-id">#${article.id}</span>
+                        </div>
+                        
+                        ${contentHTML}
+
+                        <a href="${getArticleUrl(article.id)}" target="_blank" class="read-article-btn">
+                            Read Full Article on ET
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-7h-2v7z"/>
+                            </svg>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+
+            // Initialize carousels for card method
+            initializeCarousels();
+        }
+
+        // Toggle story read more/less
+        window.toggleStory = function(storyId) {
+            const storyDiv = document.querySelector(`[data-story-id="${storyId}"]`);
+            const fullStoryDiv = document.querySelector(`[data-full-story="${storyId}"]`);
+            const btn = event.target;
+
+            if (storyDiv.classList.contains('collapsed')) {
+                storyDiv.innerHTML = fullStoryDiv.innerHTML;
+                storyDiv.classList.remove('collapsed');
+                btn.innerHTML = '← Read Less';
+            } else {
+                const article = articlesData.find(a => a.id === storyId);
+                const previewText = getPreviewText(article.story);
+                storyDiv.innerHTML = previewText;
+                storyDiv.classList.add('collapsed');
+                btn.innerHTML = 'Read More →';
+            }
+        };
+
+        // Initialize carousel scroll behavior
+        function initializeCarousels() {
+            document.querySelectorAll('.carousel-wrapper').forEach(carousel => {
+                const articleId = carousel.dataset.carousel;
+                const dotsContainer = document.querySelector(`[data-dots="${articleId}"]`);
+                if (!dotsContainer) return;
+                
+                const dots = dotsContainer.querySelectorAll('.dot');
+
+                carousel.addEventListener('scroll', () => {
+                    const scrollLeft = carousel.scrollLeft;
+                    const cardWidth = carousel.querySelector('.card-item').offsetWidth + 12;
+                    const activeIndex = Math.round(scrollLeft / cardWidth);
+
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === activeIndex);
+                    });
+                });
+            });
+        }
+
+        // Load articles on page load
+        loadArticles();
+    </script>
+</body>
+</html>
