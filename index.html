@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0a0a0a;
+            background: #0f0f0f;
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -22,20 +22,20 @@
             padding: 20px;
         }
 
-        /* Mobile Frame - Slimmer bezels */
+        /* Mobile Frame */
         .mobile-frame {
             width: 390px;
             height: 720px;
-            background: #1a1a1a;
+            background: #1c1c1c;
             border-radius: 45px;
             padding: 6px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.6),
-                        0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.7),
+                        0 0 0 1px rgba(255,255,255,0.08);
             position: relative;
             overflow: hidden;
         }
 
-        /* Minimal Notch */
+        /* Notch */
         .notch {
             position: absolute;
             top: 6px;
@@ -64,19 +64,19 @@
         .header {
             background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
             color: #fff;
-            padding: 40px 20px 16px 20px;
-            box-shadow: 0 2px 20px rgba(198, 40, 40, 0.25);
+            padding: 40px 24px 22px 24px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
         }
 
         .header-title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .et-logo {
@@ -85,81 +85,75 @@
         }
 
         .prime-badge {
-            background: rgba(255, 235, 59, 0.2);
+            background: rgba(255, 235, 59, 0.25);
             color: #ffeb3b;
             font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 235, 59, 0.4);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            border: 1.5px solid rgba(255, 235, 59, 0.5);
+            box-shadow: 0 2px 8px rgba(255, 235, 59, 0.2);
         }
 
         /* Container */
         .container {
             flex: 1;
             overflow-y: auto;
-            padding: 16px;
-            background: #f5f5f5;
+            padding: 20px 16px;
+            background: #f8f9fa;
             -webkit-overflow-scrolling: touch;
         }
 
         .container::-webkit-scrollbar {
-            width: 3px;
+            width: 4px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: transparent;
         }
 
         .container::-webkit-scrollbar-thumb {
-            background: #c62828;
-            border-radius: 3px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.3);
         }
 
         /* Article Card */
         .article-card {
-            background: #fff;
+            background: #ffffff;
             border-radius: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .article-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 16px;
-            background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
+        .article-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        /* Article Heading */
+        .article-heading {
+            padding: 20px 20px 16px 20px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.5;
             border-bottom: 1px solid #f0f0f0;
+            letter-spacing: -0.2px;
         }
 
-        .category-badge {
-            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            box-shadow: 0 2px 8px rgba(198, 40, 40, 0.3);
-        }
-
-        .category-badge.free {
-            background: linear-gradient(135deg, #757575 0%, #616161 100%);
-        }
-
-        .article-id {
-            color: #999;
-            font-size: 11px;
-            margin-left: auto;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        /* Story Image - Fixed */
+        /* Story Image */
         .story-image-container {
             width: 100%;
-            height: 220px;
+            height: 240px;
             overflow: hidden;
-            background: #f0f0f0;
+            background: #f5f5f5;
             position: relative;
         }
 
@@ -168,6 +162,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-card:hover .story-image {
+            transform: scale(1.03);
         }
 
         /* Story Content */
@@ -175,17 +174,17 @@
             padding: 20px;
         }
 
-        /* Story Text - Fixed line spacing and justification */
+        /* Story Text */
         .story-text {
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 14.5px;
+            line-height: 1.8;
             color: #2c2c2c;
             text-align: justify;
-            word-spacing: -0.05em;
+            letter-spacing: -0.1px;
         }
 
         .story-text.collapsed {
-            max-height: 110px;
+            max-height: 180px;
             overflow: hidden;
             position: relative;
         }
@@ -196,79 +195,110 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 50px;
-            background: linear-gradient(to bottom, transparent, #fff);
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, #ffffff);
         }
 
-        /* Read More Button */
-        .read-more-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 12px;
-            padding: 10px 18px;
-            background: transparent;
-            color: #c62828;
-            border: 2px solid #c62828;
-            border-radius: 8px;
-            font-size: 13px;
+        /* Read More Link */
+        .read-more-link {
+            color: #d32f2f;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline;
+            margin-left: 4px;
+            transition: all 0.2s ease;
         }
 
-        .read-more-btn:hover {
-            background: #c62828;
-            color: #fff;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3);
+        .read-more-link:hover {
+            color: #b71c1c;
         }
 
-        .read-more-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Summary and Keypoint */
+        /* Summary */
         .summary-text {
             padding: 20px;
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: #2c2c2c;
+            text-align: justify;
+            letter-spacing: -0.1px;
+        }
+
+        /* Keypoint List */
+        .keypoint-list {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .keypoint-item {
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-left: 4px solid #d32f2f;
+            border-radius: 10px;
             font-size: 14px;
             line-height: 1.7;
             color: #2c2c2c;
             text-align: justify;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .keypoint-list {
-            list-style: none;
-            padding: 16px;
-        }
-
-        .keypoint-item {
-            padding: 14px 16px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
-            border-left: 4px solid #c62828;
-            border-radius: 8px;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #2c2c2c;
-            box-shadow: 0 2px 6px rgba(198, 40, 40, 0.08);
-            text-align: justify;
+        .keypoint-item:hover {
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: translateX(2px);
         }
 
         .keypoint-item:last-child {
             margin-bottom: 0;
         }
 
+        .keypoint-item.hidden {
+            display: none;
+        }
+
+        .keypoint-footer {
+            padding: 0 20px 20px 20px;
+            text-align: center;
+        }
+
+        .show-all-keypoints {
+            color: #d32f2f;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 12px 28px;
+            background: #ffffff;
+            border: 2px solid #d32f2f;
+            border-radius: 10px;
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .show-all-keypoints:hover {
+            background: #d32f2f;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        .show-all-keypoints:active {
+            transform: translateY(0);
+        }
+
         /* Card Carousel */
         .carousel-container {
             position: relative;
             overflow: hidden;
-            padding: 16px;
+            padding: 20px;
         }
 
         .carousel-wrapper {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
@@ -284,22 +314,22 @@
             min-width: 88%;
             scroll-snap-align: start;
             background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
-            color: #fff;
+            color: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 6px 24px rgba(198, 40, 40, 0.4);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
             position: relative;
             overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* First Card with Image */
-        .card-item.first-card {
-            display: flex;
-            flex-direction: column;
+        .card-item:active {
+            transform: scale(0.98);
         }
 
-        .card-image-container {
+        /* First card with image */
+        .card-item.first-card .card-image-container {
             width: 100%;
-            height: 200px;
+            height: 190px;
             overflow: hidden;
             background: rgba(0,0,0,0.2);
         }
@@ -311,130 +341,95 @@
             display: block;
         }
 
-        .card-item.first-card .card-text {
+        .card-text-wrapper {
             padding: 20px;
-            flex: 1;
-        }
-
-        .card-item:not(.first-card) .card-text {
-            padding: 24px;
-        }
-
-        .card-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            pointer-events: none;
         }
 
         .card-text {
-            font-size: 13px;
-            line-height: 1.6;
+            font-size: 14px;
+            line-height: 1.7;
             position: relative;
             z-index: 1;
             text-align: justify;
+            letter-spacing: -0.1px;
         }
 
         .carousel-dots {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 16px;
             padding-bottom: 4px;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: #ddd;
-            transition: all 0.3s ease;
+            background: #d0d0d0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .dot:hover {
+            background: #999;
+            transform: scale(1.2);
         }
 
         .dot.active {
-            background: #c62828;
-            width: 24px;
-            border-radius: 3px;
+            background: #d32f2f;
+            width: 28px;
+            border-radius: 4px;
         }
 
-        /* Read Article Button */
-        .read-article-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: calc(100% - 40px);
-            margin: 0 20px 20px 20px;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
+        /* Read Article Link */
+        .read-article-link {
+            display: inline;
+            color: #d32f2f;
             font-size: 14px;
             font-weight: 700;
-            cursor: pointer;
-            text-align: center;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(198, 40, 40, 0.3);
-            position: relative;
-            overflow: hidden;
+            margin-left: 4px;
+            transition: all 0.2s ease;
         }
 
-        .read-article-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
+        .read-article-link:hover {
+            color: #b71c1c;
         }
 
-        .read-article-btn:hover::before {
-            left: 100%;
-        }
-
-        .read-article-btn:active {
-            transform: scale(0.98);
-        }
-
-        .read-article-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
+        .article-footer {
+            padding: 0 20px 20px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #2c2c2c;
         }
 
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             color: #999;
         }
 
         .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
+            font-size: 56px;
+            margin-bottom: 20px;
             opacity: 0.5;
         }
 
         .empty-state p {
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
+            color: #666;
         }
 
         /* Loading */
         .loading {
             text-align: center;
-            padding: 60px 20px;
-            color: #c62828;
-            font-weight: 600;
-            font-size: 15px;
+            padding: 80px 20px;
+            color: #d32f2f;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         .loading::after {
@@ -477,25 +472,6 @@
             }
         }
 
-        /* Desktop Preview Label */
-        @media (min-width: 481px) {
-            body::before {
-                position: absolute;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #666;
-                font-size: 11px;
-                font-weight: 700;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                padding: 8px 20px;
-                background: rgba(255,255,255,0.1);
-                border-radius: 20px;
-                backdrop-filter: blur(10px);
-            }
-        }
-
         /* Smaller screens */
         @media (max-height: 800px) {
             .mobile-frame {
@@ -529,26 +505,24 @@
             return `https://economictimes.indiatimes.com/prime/economy-and-policy/primearticleshow/${articleId}.cms`;
         }
 
+        // Function to generate image URL from msid
+        function getImageUrl(msid) {
+            return `https://img.etimg.com/thumb/msid-${msid},width-1015,height-761,imgsize-22520,resizemode-8/prime/technology-and-startups/article-image.jpg`;
+        }
+
         // Format story text - preserve line breaks
         function formatStoryText(story) {
             if (!story) return '';
-            
-            // Replace newlines with <br> tags for HTML
             return story.replace(/\n/g, '<br>').trim();
         }
 
-        // Get preview text (first 150 characters without breaks)
+        // Get preview text (increased for more context)
         function getPreviewText(story) {
             if (!story) return '';
-            
-            // Remove line breaks for preview
             const text = story.replace(/\n/g, ' ').trim();
-            
-            if (text.length <= 150) return text;
-            
-            const preview = text.substring(0, 150);
+            if (text.length <= 250) return text;
+            const preview = text.substring(0, 250);
             const lastSpace = preview.lastIndexOf(' ');
-            
             return preview.substring(0, lastSpace) + '...';
         }
 
@@ -584,6 +558,8 @@
 
             container.innerHTML = articlesData.map(article => {
                 let contentHTML = '';
+                const imageUrl = getImageUrl(article.id);
+                const heading = article.heading ? `<div class="article-heading">${article.heading}</div>` : '';
 
                 // Render based on method
                 if (article.method === 'story' && article.story) {
@@ -591,72 +567,93 @@
                     const fullText = formatStoryText(article.story);
                     
                     contentHTML = `
-                        ${article.url ? `
-                            <div class="story-image-container">
-                                <img src="${article.url}" alt="Story Image" class="story-image" 
-                                     onerror="this.parentElement.style.display='none'"
-                                     loading="lazy">
-                            </div>
-                        ` : ''}
+                        ${heading}
+                        <div class="story-image-container">
+                            <img src="${imageUrl}" alt="Story Image" class="story-image" 
+                                 onerror="this.parentElement.style.display='none'"
+                                 loading="lazy">
+                        </div>
                         <div class="story-content">
-                            <div class="story-text collapsed" data-story-id="${article.id}">${previewText}</div>
-                            <button class="read-more-btn" onclick="toggleStory('${article.id}')">
-                                Read More →
-                            </button>
+                            <div class="story-text" data-story-id="${article.id}" data-expanded="false">
+                                ${previewText}<a href="javascript:void(0)" class="read-more-link" onclick="toggleStory('${article.id}')">Read More</a>
+                            </div>
                             <div style="display:none;" data-full-story="${article.id}">${fullText}</div>
+                            <div style="display:none;" data-preview-story="${article.id}">${previewText}</div>
                         </div>
                     `;
                 } else if (article.method === 'card' && article.card) {
                     contentHTML = `
+                        ${heading}
                         <div class="carousel-container">
                             <div class="carousel-wrapper" data-carousel="${article.id}">
                                 ${article.card.map((cardText, index) => `
                                     <div class="card-item ${index === 0 ? 'first-card' : ''}">
-                                        ${index === 0 && article.url ? `
+                                        ${index === 0 ? `
                                             <div class="card-image-container">
-                                                <img src="${article.url}" alt="Card Image" class="card-image" 
+                                                <img src="${imageUrl}" alt="Card Image" class="card-image" 
                                                      onerror="this.parentElement.style.display='none'"
                                                      loading="lazy">
                                             </div>
                                         ` : ''}
-                                        <p class="card-text">${cardText}</p>
+                                        <div class="card-text-wrapper">
+                                            <p class="card-text">${cardText}</p>
+                                        </div>
                                     </div>
                                 `).join('')}
                             </div>
                             <div class="carousel-dots" data-dots="${article.id}">
                                 ${article.card.map((_, index) => `
-                                    <span class="dot ${index === 0 ? 'active' : ''}"></span>
+                                    <span class="dot ${index === 0 ? 'active' : ''}" onclick="scrollToCard('${article.id}', ${index})"></span>
                                 `).join('')}
                             </div>
                         </div>
                     `;
                 } else if (article.method === 'keypoint' && article.keypoint) {
+                    // Show only first 3 keypoints initially
+                    const initialKeypoints = article.keypoint.slice(0, 3);
+                    const remainingKeypoints = article.keypoint.slice(3);
+                    
                     contentHTML = `
-                        <ul class="keypoint-list">
-                            ${article.keypoint.map(point => `
+                        ${heading}
+                        <div class="story-image-container">
+                            <img src="${imageUrl}" alt="Keypoint Image" class="story-image" 
+                                 onerror="this.parentElement.style.display='none'"
+                                 loading="lazy">
+                        </div>
+                        <ul class="keypoint-list" data-keypoint-list="${article.id}">
+                            ${initialKeypoints.map((point, index) => `
                                 <li class="keypoint-item">${point}</li>
                             `).join('')}
+                            ${remainingKeypoints.map((point, index) => `
+                                <li class="keypoint-item hidden" data-hidden-keypoint="${article.id}">${point}</li>
+                            `).join('')}
                         </ul>
+                        ${remainingKeypoints.length > 0 ? `
+                            <div class="keypoint-footer">
+                                <a href="javascript:void(0)" class="show-all-keypoints" onclick="toggleAllKeypoints('${article.id}')">
+                                    Read More
+                                </a>
+                            </div>
+                        ` : ''}
                     `;
                 } else if (article.method === 'summary' && article.Summary) {
-                    contentHTML = `<p class="summary-text">${article.Summary}</p>`;
+                    contentHTML = `
+                        ${heading}
+                        <div class="story-image-container">
+                            <img src="${imageUrl}" alt="Summary Image" class="story-image" 
+                                 onerror="this.parentElement.style.display='none'"
+                                 loading="lazy">
+                        </div>
+                        <p class="summary-text">${article.Summary}</p>
+                    `;
                 }
 
                 return `
                     <div class="article-card">
-                        <div class="article-header">
-                            <span class="category-badge ${article.category.toLowerCase()}">${article.category}</span>
-                            <span class="article-id">#${article.id}</span>
-                        </div>
-                        
                         ${contentHTML}
-
-                        <a href="${getArticleUrl(article.id)}" target="_blank" class="read-article-btn">
-                            Read Full Article on ET
-                            <svg viewBox="0 0 24 24">
-                                <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-7h-2v7z"/>
-                            </svg>
-                        </a>
+                        <div class="article-footer">
+                            <a href="${getArticleUrl(article.id)}" target="_blank" class="read-article-link">Read Full Article</a>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -669,19 +666,41 @@
         window.toggleStory = function(storyId) {
             const storyDiv = document.querySelector(`[data-story-id="${storyId}"]`);
             const fullStoryDiv = document.querySelector(`[data-full-story="${storyId}"]`);
-            const btn = event.target;
+            const previewStoryDiv = document.querySelector(`[data-preview-story="${storyId}"]`);
+            const isExpanded = storyDiv.dataset.expanded === 'true';
 
-            if (storyDiv.classList.contains('collapsed')) {
-                storyDiv.innerHTML = fullStoryDiv.innerHTML;
-                storyDiv.classList.remove('collapsed');
-                btn.innerHTML = '← Read Less';
+            if (!isExpanded) {
+                storyDiv.innerHTML = fullStoryDiv.innerHTML + ' <a href="javascript:void(0)" class="read-more-link" onclick="toggleStory(\'' + storyId + '\')">Read Less</a>';
+                storyDiv.dataset.expanded = 'true';
             } else {
-                const article = articlesData.find(a => a.id === storyId);
-                const previewText = getPreviewText(article.story);
-                storyDiv.innerHTML = previewText;
-                storyDiv.classList.add('collapsed');
-                btn.innerHTML = 'Read More →';
+                storyDiv.innerHTML = previewStoryDiv.innerHTML + '<a href="javascript:void(0)" class="read-more-link" onclick="toggleStory(\'' + storyId + '\')">Read More</a>';
+                storyDiv.dataset.expanded = 'false';
             }
+        };
+
+        // Toggle all keypoints visibility
+        window.toggleAllKeypoints = function(articleId) {
+            const hiddenKeypoints = document.querySelectorAll(`[data-hidden-keypoint="${articleId}"]`);
+            const button = event.target;
+            const isHidden = hiddenKeypoints[0].classList.contains('hidden');
+
+            if (isHidden) {
+                hiddenKeypoints.forEach(kp => kp.classList.remove('hidden'));
+                button.textContent = 'Show Less';
+            } else {
+                hiddenKeypoints.forEach(kp => kp.classList.add('hidden'));
+                button.textContent = 'Read More';
+            }
+        };
+
+        // Scroll to specific card in carousel
+        window.scrollToCard = function(carouselId, cardIndex) {
+            const carousel = document.querySelector(`[data-carousel="${carouselId}"]`);
+            const cardWidth = carousel.querySelector('.card-item').offsetWidth + 14;
+            carousel.scrollTo({
+                left: cardWidth * cardIndex,
+                behavior: 'smooth'
+            });
         };
 
         // Initialize carousel scroll behavior
@@ -695,7 +714,7 @@
 
                 carousel.addEventListener('scroll', () => {
                     const scrollLeft = carousel.scrollLeft;
-                    const cardWidth = carousel.querySelector('.card-item').offsetWidth + 12;
+                    const cardWidth = carousel.querySelector('.card-item').offsetWidth + 14;
                     const activeIndex = Math.round(scrollLeft / cardWidth);
 
                     dots.forEach((dot, index) => {
