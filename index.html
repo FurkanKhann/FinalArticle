@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ET Prime Articles - Mobile Preview</title>
+    <title>ET Prime - News Feed</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: #0f0f0f;
             color: #333;
             min-height: 100vh;
@@ -29,13 +29,11 @@
             background: #1c1c1c;
             border-radius: 45px;
             padding: 6px;
-            box-shadow: 0 30px 90px rgba(0,0,0,0.7),
-                        0 0 0 1px rgba(255,255,255,0.08);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);
             position: relative;
             overflow: hidden;
         }
 
-        /* Notch */
         .notch {
             position: absolute;
             top: 6px;
@@ -46,10 +44,8 @@
             background: #000;
             border-radius: 0 0 20px 20px;
             z-index: 200;
-            box-shadow: inset 0 -2px 4px rgba(255,255,255,0.05);
         }
 
-        /* Mobile Screen */
         .mobile-screen {
             width: 100%;
             height: 100%;
@@ -62,99 +58,103 @@
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
             color: #fff;
-            padding: 40px 24px 22px 24px;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+            padding: 20px 24px;
+            box-shadow: 0 4px 20px rgba(211, 47, 47, 0.15);
             position: relative;
             z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
         }
 
         .header-title {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.6px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .header-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .et-logo {
-            color: #fff;
-            font-style: italic;
-        }
-
-        .prime-badge {
-            background: rgba(255, 235, 59, 0.25);
-            color: #ffeb3b;
-            font-weight: 900;
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            border: 1.5px solid rgba(255, 235, 59, 0.5);
-            box-shadow: 0 2px 8px rgba(255, 235, 59, 0.2);
+        .header-icon:active {
+            background: rgba(255,255,255,0.25);
+            transform: scale(0.95);
         }
 
         /* Container */
         .container {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 16px;
-            background: #f8f9fa;
+            background: #fafafa;
             -webkit-overflow-scrolling: touch;
         }
 
         .container::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: transparent;
+            width: 5px;
         }
 
         .container::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.2);
-            border-radius: 4px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 3px;
         }
 
-        .container::-webkit-scrollbar-thumb:hover {
-            background: rgba(0,0,0,0.3);
-        }
-
-        /* Article Card */
+        /* Base Article Card */
         .article-card {
             background: #ffffff;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.04);
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .article-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transform: translateY(-2px);
-        }
-
-        /* Article Heading */
-        .article-heading {
-            padding: 20px 20px 16px 20px;
-            font-size: 17px;
-            font-weight: 700;
-            color: #1a1a1a;
-            line-height: 1.5;
-            border-bottom: 1px solid #f0f0f0;
-            letter-spacing: -0.2px;
-        }
-
-        /* Story Image */
-        .story-image-container {
-            width: 100%;
-            height: 240px;
             overflow: hidden;
-            background: #f5f5f5;
+        }
+
+        .article-card:active {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-1px);
+        }
+
+        /* ===== STORY FORMAT ===== */
+        .article-card.story-format {
+            border-top: 4px solid #d32f2f;
+        }
+
+        .story-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            height: 200px;
+        }
+
+        .story-image-container {
             position: relative;
+            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+            overflow: hidden;
         }
 
         .story-image {
@@ -162,148 +162,195 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s ease;
         }
 
-        .article-card:hover .story-image {
-            transform: scale(1.03);
+        .article-card.story-format:active .story-image {
+            transform: scale(1.02);
         }
 
-        /* Story Content */
-        .story-content {
-            padding: 20px;
-        }
-
-        /* Story Text */
-        .story-text {
-            font-size: 14.5px;
-            line-height: 1.8;
-            color: #2c2c2c;
-            text-align: justify;
-            letter-spacing: -0.1px;
-        }
-
-        .story-text.collapsed {
-            max-height: 180px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .story-text.collapsed::after {
-            content: '';
+        .story-meta-badge {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, #ffffff);
-        }
-
-        /* Read More Link */
-        .read-more-link {
-            color: #d32f2f;
-            font-size: 14px;
+            top: 10px;
+            right: 10px;
+            background: rgba(211, 47, 47, 0.95);
+            color: #fff;
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-size: 10px;
             font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline;
-            margin-left: 4px;
-            transition: all 0.2s ease;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
         }
 
-        .read-more-link:hover {
-            color: #b71c1c;
+        .story-heading-section {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fff;
         }
 
-        /* Summary */
-        .summary-text {
-            padding: 20px;
-            font-size: 14.5px;
-            line-height: 1.8;
-            color: #2c2c2c;
-            text-align: justify;
-            letter-spacing: -0.1px;
-        }
-
-        /* Keypoint List */
-        .keypoint-list {
-            list-style: none;
-            padding: 20px;
-        }
-
-        .keypoint-item {
-            padding: 16px 18px;
-            margin-bottom: 12px;
-            background: #f8f9fa;
-            border-left: 4px solid #d32f2f;
-            border-radius: 10px;
+        .story-heading {
             font-size: 14px;
-            line-height: 1.7;
-            color: #2c2c2c;
-            text-align: justify;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .keypoint-item:hover {
-            background: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transform: translateX(2px);
+        .story-preview-text {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #666;
+            margin-top: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .keypoint-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .keypoint-item.hidden {
+        .story-content-full {
+            padding: 16px 20px;
             display: none;
         }
 
-        .keypoint-footer {
-            padding: 0 20px 20px 20px;
-            text-align: center;
+        .story-content-full.expanded {
+            display: block;
+            border-top: 1px solid #f0f0f0;
         }
 
-        .show-all-keypoints {
-            color: #d32f2f;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            padding: 12px 28px;
-            background: #ffffff;
-            border: 2px solid #d32f2f;
-            border-radius: 10px;
-            display: inline-block;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .story-text {
+            font-size: 15px;
+            line-height: 1.75;
+            color: #424242;
+            text-align: justify;
+            letter-spacing: -0.1px;
+            margin-bottom: 12px;
         }
 
-        .show-all-keypoints:hover {
-            background: #d32f2f;
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        /* ===== SUMMARY FORMAT ===== */
+        .article-card.summary-format {
+            border-left: 5px solid #4CAF50;
         }
 
-        .show-all-keypoints:active {
-            transform: translateY(0);
+        .summary-header {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 0;
+            height: 160px;
         }
 
-        /* Card Carousel */
-        .carousel-container {
-            position: relative;
+        .summary-image-container {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             overflow: hidden;
-            padding: 20px;
+            position: relative;
+        }
+
+        .summary-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+
+        .article-card.summary-format:active .summary-image {
+            opacity: 1;
+        }
+
+        .summary-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #4CAF50;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .summary-content-section {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fff;
+        }
+
+        .summary-heading {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .summary-preview {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #555;
+            margin-top: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .summary-content-full {
+            padding: 16px 20px;
+            display: none;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .summary-content-full.expanded {
+            display: block;
+        }
+
+        .summary-full-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #555;
+            text-align: justify;
+            letter-spacing: -0.1px;
+        }
+
+        /* ===== CARD CAROUSEL FORMAT ===== */
+        .article-card.card-format {
+            border-top: 4px solid #d32f2f;
+        }
+
+        .carousel-heading {
+            padding: 16px 20px 12px 20px;
+            font-size: 16px;
+            font-weight: 800;
+            color: #1a1a1a;
+            letter-spacing: -0.3px;
+        }
+
+        .carousel-container {
+            overflow: hidden;
         }
 
         .carousel-wrapper {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            padding: 4px 0;
+            padding: 0 20px 12px 20px;
         }
 
         .carousel-wrapper::-webkit-scrollbar {
@@ -311,139 +358,197 @@
         }
 
         .card-item {
-            min-width: 88%;
+            min-width: 85%;
             scroll-snap-align: start;
-            background: linear-gradient(135deg, #d32f2f 0%, #c62828 50%, #b71c1c 100%);
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
             color: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            padding: 20px 18px 16px 18px;
+            box-shadow: 0 4px 16px rgba(211, 47, 47, 0.18);
+            transition: box-shadow 0.3s, transform 0.3s;
+            margin-bottom: 8px;
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .card-item:hover {
+            box-shadow: 0 8px 32px rgba(211, 47, 47, 0.22);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .card-item img.card-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(211,47,47,0.08);
+        }
+        
 
         .card-item:active {
             transform: scale(0.98);
         }
 
-        /* First card with image */
-        .card-item.first-card .card-image-container {
-            width: 100%;
-            height: 190px;
-            overflow: hidden;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .card-text-wrapper {
-            padding: 20px;
-        }
-
         .card-text {
             font-size: 14px;
             line-height: 1.7;
-            position: relative;
-            z-index: 1;
             text-align: justify;
             letter-spacing: -0.1px;
         }
 
         .carousel-dots {
             display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 16px;
-            padding-bottom: 4px;
+            justify-content: flex-start;
+            gap: 6px;
+            padding: 8px 20px 12px 20px;
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: #d0d0d0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             cursor: pointer;
-        }
-
-        .dot:hover {
-            background: #999;
-            transform: scale(1.2);
         }
 
         .dot.active {
             background: #d32f2f;
-            width: 28px;
-            border-radius: 4px;
+            width: 24px;
+            border-radius: 3px;
         }
 
-        /* Read Article Link */
-        .read-article-link {
-            display: inline;
-            color: #d32f2f;
+        /* ===== KEYPOINT FORMAT ===== */
+        .article-card.keypoint-format {
+            border-top: 4px solid #2196F3;
+        }
+
+        .keypoint-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            height: 170px;
+        }
+
+        .keypoint-image-container {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            overflow: hidden;
+        }
+
+        .keypoint-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .keypoint-heading-section {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fff;
+        }
+
+        .keypoint-heading {
             font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            margin-left: 4px;
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .keypoint-list {
+            list-style: none;
+            padding: 12px 16px;
+            display: none;
+        }
+
+        .keypoint-list.expanded {
+            display: block;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .keypoint-item {
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            background: #f5f5f5;
+            border-left: 3px solid #2196F3;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+            letter-spacing: -0.1px;
             transition: all 0.2s ease;
         }
 
-        .read-article-link:hover {
-            color: #b71c1c;
+        .keypoint-item:last-child {
+            margin-bottom: 0;
         }
 
+        .keypoint-item:active {
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Footer & Links */
         .article-footer {
-            padding: 0 20px 20px 20px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #2c2c2c;
+            padding: 12px 20px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 12px;
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: #999;
-        }
-
-        .empty-state-icon {
-            font-size: 56px;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-state p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #666;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 80px 20px;
+        .read-link {
             color: #d32f2f;
             font-weight: 700;
-            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.2px;
+            display: inline-block;
         }
 
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s infinite;
+        .read-link:active {
+            color: #b71c1c;
+            opacity: 0.8;
         }
 
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
+        .expand-button {
+            color: #d32f2f;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: #ffffff;
+            border: 1.5px solid #d32f2f;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            margin-top: 8px;
         }
 
-        /* Responsive for actual mobile devices */
+        .expand-button:active {
+            background: #d32f2f;
+            color: #ffffff;
+            transform: scale(0.98);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+            color: #d32f2f;
+            font-weight: 700;
+        }
+
+        /* Responsive */
         @media (max-width: 480px) {
             body {
                 padding: 0;
@@ -456,7 +561,6 @@
                 border-radius: 0;
                 padding: 0;
                 box-shadow: none;
-                background: transparent;
             }
 
             .mobile-screen {
@@ -466,17 +570,6 @@
             .notch {
                 display: none;
             }
-
-            .header {
-                padding-top: 20px;
-            }
-        }
-
-        /* Smaller screens */
-        @media (max-height: 800px) {
-            .mobile-frame {
-                height: 650px;
-            }
         }
     </style>
 </head>
@@ -485,10 +578,11 @@
         <div class="notch"></div>
         <div class="mobile-screen">
             <div class="header">
-                <div class="header-title">
-                    <span class="et-logo">The Economic Times</span>
-                    <span class="prime-badge">PRIME</span>
+                <div class="header-left">
+                    <div class="header-title">ET Prime</div>
+                    <div class="header-subtitle">News</div>
                 </div>
+                <div class="header-icon">⚙️</div>
             </div>
 
             <div class="container" id="articlesContainer">
@@ -500,33 +594,28 @@
     <script>
         let articlesData = [];
 
-        // Function to generate ET article URL
         function getArticleUrl(articleId) {
             return `https://economictimes.indiatimes.com/prime/economy-and-policy/primearticleshow/${articleId}.cms`;
         }
 
-        // Function to generate image URL from msid
         function getImageUrl(msid) {
-            return `https://img.etimg.com/thumb/msid-${msid},width-1015,height-761,imgsize-22520,resizemode-8/prime/technology-and-startups/article-image.jpg`;
+            return `https://img.etimg.com/thumb/msid-${msid},width-600,height-400,imgsize-22520,resizemode-8/prime/technology-and-startups/article-image.jpg`;
         }
 
-        // Format story text - preserve line breaks
         function formatStoryText(story) {
             if (!story) return '';
-            return story.replace(/\n/g, '<br>').trim();
+            return story.replace(/\n/g, ' ').trim();
         }
 
-        // Get preview text (increased for more context)
-        function getPreviewText(story) {
-            if (!story) return '';
-            const text = story.replace(/\n/g, ' ').trim();
-            if (text.length <= 250) return text;
-            const preview = text.substring(0, 250);
+        function getPreviewText(text, limit = 120) {
+            if (!text) return '';
+            const cleanText = text.replace(/\n/g, ' ').trim();
+            if (cleanText.length <= limit) return cleanText;
+            const preview = cleanText.substring(0, limit);
             const lastSpace = preview.lastIndexOf(' ');
             return preview.substring(0, lastSpace) + '...';
         }
 
-        // Load data from JSON file
         async function loadArticles() {
             try {
                 const response = await fetch('data.json');
@@ -534,176 +623,187 @@
                 renderArticles();
             } catch (error) {
                 document.getElementById('articlesContainer').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">⚠️</div>
-                        <p>Failed to load articles.<br>Please ensure data.json exists.</p>
+                    <div style="text-align: center; padding: 100px 20px; color: #999;">
+                        Failed to load articles
                     </div>
                 `;
             }
         }
 
-        // Render articles based on method
         function renderArticles() {
             const container = document.getElementById('articlesContainer');
             
             if (!articlesData || articlesData.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📰</div>
-                        <p>No articles found</p>
-                    </div>
-                `;
+                container.innerHTML = '<div style="text-align: center; padding: 100px 20px;">No articles</div>';
                 return;
             }
 
             container.innerHTML = articlesData.map(article => {
-                let contentHTML = '';
                 const imageUrl = getImageUrl(article.id);
-                const heading = article.heading ? `<div class="article-heading">${article.heading}</div>` : '';
+                let html = '';
 
-                // Render based on method
                 if (article.method === 'story' && article.story) {
-                    const previewText = getPreviewText(article.story);
                     const fullText = formatStoryText(article.story);
+                    const preview = getPreviewText(fullText);
                     
-                    contentHTML = `
-                        ${heading}
-                        <div class="story-image-container">
-                            <img src="${imageUrl}" alt="Story Image" class="story-image" 
-                                 onerror="this.parentElement.style.display='none'"
-                                 loading="lazy">
-                        </div>
-                        <div class="story-content">
-                            <div class="story-text" data-story-id="${article.id}" data-expanded="false">
-                                ${previewText}<a href="javascript:void(0)" class="read-more-link" onclick="toggleStory('${article.id}')">Read More</a>
+                    html = `
+                        <div class="article-card story-format">
+                            <div class="story-header">
+                                <div class="story-image-container">
+                                    <img src="${imageUrl}" alt="Story" class="story-image" loading="lazy" 
+                                         onerror="this.parentElement.style.background='linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%)'; this.style.display='none'">
+                                    <div class="story-meta-badge">Featured</div>
+                                </div>
+                                <div class="story-heading-section">
+                                    <div class="story-heading">${article.heading}</div>
+                                    <div class="story-preview-text">${preview}</div>
+                                </div>
                             </div>
-                            <div style="display:none;" data-full-story="${article.id}">${fullText}</div>
-                            <div style="display:none;" data-preview-story="${article.id}">${previewText}</div>
-                        </div>
-                    `;
-                } else if (article.method === 'card' && article.card) {
-                    contentHTML = `
-                        ${heading}
-                        <div class="carousel-container">
-                            <div class="carousel-wrapper" data-carousel="${article.id}">
-                                ${article.card.map((cardText, index) => `
-                                    <div class="card-item ${index === 0 ? 'first-card' : ''}">
-                                        ${index === 0 ? `
-                                            <div class="card-image-container">
-                                                <img src="${imageUrl}" alt="Card Image" class="card-image" 
-                                                     onerror="this.parentElement.style.display='none'"
-                                                     loading="lazy">
-                                            </div>
-                                        ` : ''}
-                                        <div class="card-text-wrapper">
-                                            <p class="card-text">${cardText}</p>
-                                        </div>
-                                    </div>
-                                `).join('')}
+                            <div class="story-content-full" data-story-id="${article.id}">
+                                <div class="story-text">${fullText}</div>
                             </div>
-                            <div class="carousel-dots" data-dots="${article.id}">
-                                ${article.card.map((_, index) => `
-                                    <span class="dot ${index === 0 ? 'active' : ''}" onclick="scrollToCard('${article.id}', ${index})"></span>
-                                `).join('')}
+                            <div class="article-footer">
+                                <a href="javascript:void(0)" class="read-link" onclick="toggleStoryExpand('${article.id}')">Read Full Story</a>
+                                &nbsp;•&nbsp;
+                                <a href="${getArticleUrl(article.id)}" target="_blank" class="read-link">App →</a>
                             </div>
                         </div>
                     `;
-                } else if (article.method === 'keypoint' && article.keypoint) {
-                    // Show only first 3 keypoints initially
-                    const initialKeypoints = article.keypoint.slice(0, 3);
-                    const remainingKeypoints = article.keypoint.slice(3);
-                    
-                    contentHTML = `
-                        ${heading}
-                        <div class="story-image-container">
-                            <img src="${imageUrl}" alt="Keypoint Image" class="story-image" 
-                                 onerror="this.parentElement.style.display='none'"
-                                 loading="lazy">
-                        </div>
-                        <ul class="keypoint-list" data-keypoint-list="${article.id}">
-                            ${initialKeypoints.map((point, index) => `
-                                <li class="keypoint-item">${point}</li>
-                            `).join('')}
-                            ${remainingKeypoints.map((point, index) => `
-                                <li class="keypoint-item hidden" data-hidden-keypoint="${article.id}">${point}</li>
-                            `).join('')}
-                        </ul>
-                        ${remainingKeypoints.length > 0 ? `
-                            <div class="keypoint-footer">
-                                <a href="javascript:void(0)" class="show-all-keypoints" onclick="toggleAllKeypoints('${article.id}')">
-                                    Read More
-                                </a>
-                            </div>
-                        ` : ''}
-                    `;
+
                 } else if (article.method === 'summary' && article.Summary) {
-                    contentHTML = `
-                        ${heading}
-                        <div class="story-image-container">
-                            <img src="${imageUrl}" alt="Summary Image" class="story-image" 
-                                 onerror="this.parentElement.style.display='none'"
-                                 loading="lazy">
+                    const fullText = article.Summary;
+                    const preview = getPreviewText(fullText, 100);
+                    const hasMore = fullText.length > 100;
+                    
+                    html = `
+                        <div class="article-card summary-format">
+                            <div class="summary-header">
+                                <div class="summary-image-container">
+                                    <img src="${imageUrl}" alt="Summary" class="summary-image" loading="lazy"
+                                         onerror="this.parentElement.style.background='linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)'; this.style.display='none'">
+                                    <div class="summary-badge">Summary</div>
+                                </div>
+                                <div class="summary-content-section">
+                                    <div class="summary-heading">${article.heading}</div>
+                                    <div class="summary-preview">${preview}</div>
+                                </div>
+                            </div>
+                            ${hasMore ? `<div class="summary-content-full" data-summary-id="${article.id}">
+                                <div class="summary-full-text">${fullText}</div>
+                            </div>` : ''}
+                            <div class="article-footer">
+                                ${hasMore ? `<a href="javascript:void(0)" class="read-link" onclick="toggleSummaryExpand('${article.id}')">Read More</a>&nbsp;•&nbsp;` : ''}
+                                <a href="${getArticleUrl(article.id)}" target="_blank" class="read-link">App →</a>
+                            </div>
                         </div>
-                        <p class="summary-text">${article.Summary}</p>
+                    `;
+
+                } else if (article.method === 'card' && article.card) {
+                    html = `
+                        <div class="article-card card-format">
+                            <div class="carousel-heading">${article.heading}</div>
+                            <div class="carousel-container">
+                                <div class="carousel-wrapper" data-carousel="${article.id}">
+                                    ${article.card.map((text, i) => `
+                                        <div class="card-item">
+                                            ${i === 0 ? `<img src="${getImageUrl(article.id)}" alt="Card Image" class="card-image" loading="lazy" onerror="this.style.display='none'">` : ''}
+                                            <div class="card-text">${text}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="carousel-dots" data-dots="${article.id}">
+                                    ${article.card.map((_, i) => `
+                                        <span class="dot ${i === 0 ? 'active' : ''}" onclick="scrollToCard('${article.id}', ${i})"></span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="article-footer">
+                                <a href="${getArticleUrl(article.id)}" target="_blank" class="read-link">Open in App →</a>
+                            </div>
+                        </div>
+                    `;
+
+                } else if (article.method === 'keypoint' && article.keypoint) {
+                    const visible = article.keypoint.slice(0, 3);
+                    const remaining = article.keypoint.slice(3);
+                    
+                    html = `
+                        <div class="article-card keypoint-format">
+                            <div class="keypoint-header">
+                                <div class="keypoint-image-container">
+                                    <img src="${imageUrl}" alt="Keypoints" class="keypoint-image" loading="lazy"
+                                         onerror="this.parentElement.style.background='linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)'; this.style.display='none'">
+                                </div>
+                                <div class="keypoint-heading-section">
+                                    <div class="keypoint-heading">${article.heading}</div>
+                                </div>
+                            </div>
+                            <ul class="keypoint-list" data-keypoint-id="${article.id}">
+                                ${visible.map(point => `<li class="keypoint-item">${point}</li>`).join('')}
+                                ${remaining.map(point => `<li class="keypoint-item">${point}</li>`).join('')}
+                            </ul>
+                            <div class="article-footer">
+                                ${remaining.length > 0 ? `<a href="javascript:void(0)" class="expand-button" onclick="toggleKeypoints('${article.id}')">Show All Insights</a>` : ''}
+                                <a href="${getArticleUrl(article.id)}" target="_blank" class="read-link" style="float: right;">App →</a>
+                            </div>
+                        </div>
                     `;
                 }
 
-                return `
-                    <div class="article-card">
-                        ${contentHTML}
-                        <div class="article-footer">
-                            <a href="${getArticleUrl(article.id)}" target="_blank" class="read-article-link">Read Full Article</a>
-                        </div>
-                    </div>
-                `;
+                return html;
             }).join('');
 
-            // Initialize carousels for card method
             initializeCarousels();
         }
 
-        // Toggle story read more/less
-        window.toggleStory = function(storyId) {
-            const storyDiv = document.querySelector(`[data-story-id="${storyId}"]`);
-            const fullStoryDiv = document.querySelector(`[data-full-story="${storyId}"]`);
-            const previewStoryDiv = document.querySelector(`[data-preview-story="${storyId}"]`);
-            const isExpanded = storyDiv.dataset.expanded === 'true';
-
-            if (!isExpanded) {
-                storyDiv.innerHTML = fullStoryDiv.innerHTML + ' <a href="javascript:void(0)" class="read-more-link" onclick="toggleStory(\'' + storyId + '\')">Read Less</a>';
-                storyDiv.dataset.expanded = 'true';
+        window.toggleStoryExpand = function(storyId) {
+            const contentDiv = document.querySelector(`[data-story-id="${storyId}"]`);
+            const link = event.target;
+            
+            if (contentDiv.classList.contains('expanded')) {
+                contentDiv.classList.remove('expanded');
+                link.textContent = 'Read Full Story';
             } else {
-                storyDiv.innerHTML = previewStoryDiv.innerHTML + '<a href="javascript:void(0)" class="read-more-link" onclick="toggleStory(\'' + storyId + '\')">Read More</a>';
-                storyDiv.dataset.expanded = 'false';
+                contentDiv.classList.add('expanded');
+                link.textContent = 'Read Less';
             }
         };
 
-        // Toggle all keypoints visibility
-        window.toggleAllKeypoints = function(articleId) {
-            const hiddenKeypoints = document.querySelectorAll(`[data-hidden-keypoint="${articleId}"]`);
+        window.toggleSummaryExpand = function(summaryId) {
+            const contentDiv = document.querySelector(`[data-summary-id="${summaryId}"]`);
+            const link = event.target;
+            
+            if (contentDiv.classList.contains('expanded')) {
+                contentDiv.classList.remove('expanded');
+                link.textContent = 'Read More';
+            } else {
+                contentDiv.classList.add('expanded');
+                link.textContent = 'Read Less';
+            }
+        };
+
+        window.toggleKeypoints = function(keypointId) {
+            const listDiv = document.querySelector(`[data-keypoint-id="${keypointId}"]`);
             const button = event.target;
-            const isHidden = hiddenKeypoints[0].classList.contains('hidden');
-
-            if (isHidden) {
-                hiddenKeypoints.forEach(kp => kp.classList.remove('hidden'));
-                button.textContent = 'Show Less';
+            
+            if (listDiv.classList.contains('expanded')) {
+                listDiv.classList.remove('expanded');
+                button.textContent = 'Show All Insights';
             } else {
-                hiddenKeypoints.forEach(kp => kp.classList.add('hidden'));
-                button.textContent = 'Read More';
+                listDiv.classList.add('expanded');
+                button.textContent = 'Hide Insights';
             }
         };
 
-        // Scroll to specific card in carousel
         window.scrollToCard = function(carouselId, cardIndex) {
             const carousel = document.querySelector(`[data-carousel="${carouselId}"]`);
-            const cardWidth = carousel.querySelector('.card-item').offsetWidth + 14;
+            const cardWidth = carousel.querySelector('.card-item').offsetWidth + 12;
             carousel.scrollTo({
                 left: cardWidth * cardIndex,
                 behavior: 'smooth'
             });
         };
 
-        // Initialize carousel scroll behavior
         function initializeCarousels() {
             document.querySelectorAll('.carousel-wrapper').forEach(carousel => {
                 const articleId = carousel.dataset.carousel;
@@ -714,7 +814,7 @@
 
                 carousel.addEventListener('scroll', () => {
                     const scrollLeft = carousel.scrollLeft;
-                    const cardWidth = carousel.querySelector('.card-item').offsetWidth + 14;
+                    const cardWidth = carousel.querySelector('.card-item').offsetWidth + 12;
                     const activeIndex = Math.round(scrollLeft / cardWidth);
 
                     dots.forEach((dot, index) => {
@@ -724,7 +824,6 @@
             });
         }
 
-        // Load articles on page load
         loadArticles();
     </script>
 </body>
